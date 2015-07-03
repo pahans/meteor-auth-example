@@ -1,0 +1,50 @@
+<template name="layout">
+  <div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Meteor Auth Example</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/post/private-post">Private Post</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </nav>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {{#if currentUser}}
+          |   <a href="/logout">Logout</a>
+        {{/if}}
+        {{> Template.dynamic template=type}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="home">
+  <h1>Home here</h1>
+</template>
+
+<template name="post">
+  <h1>This is a secret post</h1>
+  {{#if currentUser}}
+    <p> secret content</p>
+  {{else}}
+    {{> unauthorized}}
+  {{/if}}
+</template>
+
+<template name="unauthorized">
+  <p>you are not authorize to view this page</p>
+  <a href="/login">Log in</a>
+  <br>
+  <a href="/">Back to Home</a> <br>
+</template>
+
+<template name="login">
+{{> loginButtons}}
+</template>
